@@ -1,0 +1,69 @@
+1)
+SELECT first_name, last_name FROM actor;
+2)
+SELECT first_name, last_name FROM actor WHERE first_name LIKE 'John';
+3)
+SELECT first_name, last_name FROM actor WHERE last_name LIKE 'Neeson';
+4)
+SELECT first_name, last_name FROM actor WHERE actor_id % 10 = 0;
+5)
+SELECT description FROM film WHERE film_id=100;
+6)
+SELECT title FROM film WHERE rating='R';
+7)
+SELECT title FROM film WHERE rating!='R';
+8)
+SELECT title, length from film ORDER BY length ASC Limit 10;
+9)
+SELECT title FROM film WHERE length =(SELECT max(length) FROM film);
+10)
+SELECT title FROM film WHERE special_features LIKE '%Deleted Scenes%';
+11)
+SELECT last_name FROM actor GROUP BY last_name HAVING count(last_name)>=1 ORDER BY last_name DESC;
+12)
+SELECT last_name, COUNT(last_name) AS total FROM actor GROUP BY last_name HAVING total>1 ORDER BY total DESC;
+13)
+SELECT a.first_name, a.last_name, count(f.film_id) AS Film_total
+FROM film_actor f
+JOIN actor a ON a.actor_id=f.actor_id
+GROUP BY (f.actor_id) ORDER BY film_total DESC LIMIT 1;
+14)
+SELECT r.return_date FROM rental r
+JOIN inventory i ON i.inventory_id=r.inventory_id
+WHERE film_id=(select film_id from film WHERE title='Academy Dinosaur') AND r.return_date IS NOT NULL
+ORDER BY r.return_date ASC LIMIT 1;
+15)
+SELECT AVG(length) FROM film;
+16)
+SELECT c.name, AVG(f.length) FROM film f
+JOIN film_category fc ON fc.film_id=f.film_id
+JOIN category c ON c.category_id=fc.category_id
+GROUP BY c.name;
+17)
+SELECT title FROM film_text WHERE description LIKE '%robot%';
+18)
+SELECT count(Title) FROM film WHERE release_year='2010';
+19)
+SELECT f.title FROM film f
+JOIN film_category fc ON fc.film_id=f.film_id
+JOIN category c ON c.category_id=fc.category_id
+WHERE c.name='Horror';
+20)
+SELECT name FROM staff_list WHERE id=2;
+21)
+SELECT f.title FROM film f
+JOIN film_actor fa ON fa.film_id=f.film_id
+WHERE fa.actor_id=
+(SELECT a.actor_id FROM actor a WHERE a.first_name='Fred' AND a.last_name='Costner');
+22)
+SELECT count(DISTINCT country) FROM country;
+23)
+SELECT name FROM language ORDER BY name DESC;
+24)
+SELECT first_name, last_name FROM actor WHERE last_name LIKE '%son' ORDER BY first_name ASC;
+25)
+SELECT c.name, count(fc.category_id) as Total FROM category c
+JOIN film_category fc ON c.category_id=fc.category_id
+GROUP BY fc.category_id
+ORDER BY Total DESC
+LIMIT 1;
