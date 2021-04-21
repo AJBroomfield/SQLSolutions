@@ -1,0 +1,19 @@
+1)
+SELECT title, release_date FROM movies WHERE release_date BETWEEN '1983-01-01' AND '1993-12-31';
+
+2)
+select m.title, AVG(r.rating) AS score FROM movies m
+JOIN ratings r ON m.id=r.movie_id
+GROUP BY r.movie_id HAVING score=1;
+
+3)
+SELECT DISTINCT m.title FROM movies m
+JOIN ratings r ON m.id=r.movie_id
+JOIN users u ON u.id=r.user_id
+JOIN genres_movies gm ON gm.movie_id=m.id
+JOIN genres g ON gm.genre_id=g.id
+WHERE u.age=24 AND r.rating=5 AND g.name='Sci-Fi';
+
+4)
+SELECT release_date, count(release_date) as total FROM movies GROUP BY release_date ORDER BY total DESC;
+SELECT DISTINCT title FROM movies WHERE release_date='1995-01-01';
